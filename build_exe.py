@@ -45,6 +45,11 @@ def main():
         "--name", "CaptchaSolver",
         "--add-data", f"{ctk_path}{sep}customtkinter/",
         "--add-data", f"{ddddocr_path}{sep}ddddocr/",
+        "--hidden-import", "selenium.webdriver.chrome.options",
+        "--hidden-import", "selenium.webdriver.chrome.service",
+        "--hidden-import", "selenium.webdriver.common.by",
+        "--hidden-import", "selenium.webdriver.support.ui",
+        "--hidden-import", "selenium.webdriver.support.expected_conditions",
         "ui_app.py"
     ]
 
