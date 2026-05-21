@@ -76,6 +76,6 @@ python ui_app.py
 (`pyinstaller`를 이용하며, 윈도우 PC에서 다음 과정을 진행해야 합니다.)
 
 1. **윈도우 PC에서 소스코드 폴더로 이동** 후 가상환경을 세팅하고 패키지를 설치합니다 (`pip install -r requirements.txt`).
-2. 프로젝트 폴더 내에 포함된 **`build_windows.bat`** 파일을 더블클릭하여 실행하거나 터미널에서 실행합니다.
+2. 프로젝트 폴더 내에서 터미널(또는 명령 프롬프트)을 열고 **`python build_exe.py`** 명령어를 실행합니다.
 3. 빌드 과정이 자동으로 진행되며, 완료 후 **`dist/CaptchaSolver`** 폴더 안에 `CaptchaSolver.exe` 파일이 생성됩니다.
 4. 해당 폴더 전체를 압축하여 사용자에게 배포하시면 됩니다.
