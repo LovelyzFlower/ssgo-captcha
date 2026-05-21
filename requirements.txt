@@ -1,0 +1,9 @@
+selenium==4.43.0
+webdriver-manager==4.0.2
+opencv-python-headless
+easyocr
+ddddocr
+numpy==2.4.4
+Pillow==12.2.0
+customtkinter
+pyinstaller
