@@ -6,6 +6,7 @@ import re
 import threading
 import cv2
 import numpy as np
+import subprocess
 import ddddocr
 from PIL import Image, ImageTk
 import customtkinter as ctk
@@ -62,8 +63,9 @@ class CaptchaApp(ctk.CTk):
         self.log_textbox.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
         self.log_textbox.configure(state="disabled")
         
-        # stdout을 Textbox로 리디렉션
+        # stdout, stderr를 Textbox로 리디렉션
         sys.stdout = RedirectText(self.log_textbox)
+        sys.stderr = RedirectText(self.log_textbox)
 
         # 오른쪽 프레임 (상태, 결과, 캡챠 이미지, 버튼)
         self.control_frame = ctk.CTkFrame(self)
@@ -121,8 +123,19 @@ class CaptchaApp(ctk.CTk):
         # headless=False로 설정하여 웹페이지 동작 과정을 사용자가 직접 볼 수 있게 합니다.
         options.add_argument("--window-size=1024,768")
         
-        service = Service(ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=service, options=options)
+        # webdriver-manager 로그 비활성화 (stderr 충돌 방지)
+        os.environ['WDM_LOG'] = '0'
+        
+        try:
+            service = Service(ChromeDriverManager().install())
+            if os.name == 'nt':
+                service.creation_flags = subprocess.CREATE_NO_WINDOW
+            driver = webdriver.Chrome(service=service, options=options)
+        except Exception as e:
+            print(f"브라우저 실행 중 치명적 오류 발생: {e}")
+            self.result_label.configure(text="브라우저 오류", text_color="red")
+            self.start_btn.configure(state="normal", text="자동화 시작")
+            return
         
         max_retries = 10
         success = False
